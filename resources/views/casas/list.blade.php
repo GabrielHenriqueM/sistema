@@ -31,13 +31,9 @@
                             <td>R$ {{ number_format($casa->preco_imovel, 2, ',', '.') }}</td>
                             <td class="text-center">
                                 @if ($casa->status === 'vendido')
-                                    <span class="badge bg-danger">
-                                        <i class="bi bi-x-circle"></i> Vendido
-                                    </span>
+                                    <span class="badge bg-danger">Vendido</span>
                                 @else
-                                    <span class="badge bg-success">
-                                        <i class="bi bi-check-circle"></i> Disponível
-                                    </span>
+                                    <span class="badge bg-success">Disponível</span>
                                 @endif
                             </td>
                             <td class="d-flex justify-content-center">
