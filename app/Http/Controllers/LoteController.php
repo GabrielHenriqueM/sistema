@@ -43,8 +43,7 @@ class LoteController extends Controller
         ]);
 
         Lote::create($validated);
-
-        return redirect()->route('lotes.index')->with('success', 'Lote cadastrado com sucesso!');
+        return redirect()->back()->with('success', 'Lote cadastrado com sucesso!');
     }
 
     /**
