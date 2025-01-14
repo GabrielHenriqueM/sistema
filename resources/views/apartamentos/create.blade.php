@@ -6,8 +6,6 @@
         <h1 class="text-center mb-4">Cadastrar Apartamento</h1>
         <form action="{{ route('apartamentos.store') }}" method="POST">
             @csrf
-
-            <!-- Bloco/Prédio e Número do Apartamento -->
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="bloco_predio" class="form-label">Bloco/Prédio:</label>
@@ -19,7 +17,6 @@
                 </div>
             </div>
 
-            <!-- Andar e Rua/Endereço -->
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="andar" class="form-label">Andar:</label>
@@ -31,7 +28,6 @@
                 </div>
             </div>
 
-            <!-- Número e Bairro -->
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="numero" class="form-label">Número:</label>
@@ -43,7 +39,6 @@
                 </div>
             </div>
 
-            <!-- Cidade e Estado -->
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="cidade" class="form-label">Cidade:</label>
@@ -55,7 +50,6 @@
                 </div>
             </div>
 
-            <!-- CEP e Quantidade de Quartos -->
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="cep" class="form-label">CEP:</label>
@@ -67,7 +61,48 @@
                 </div>
             </div>
 
-            <!-- Status do Apartamento -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="quantidade_banheiros" class="form-label">Quantidade de Banheiros:</label>
+                    <input type="number" class="form-control" id="quantidade_banheiros" name="quantidade_banheiros" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="quantidade_vagas_garagem" class="form-label">Vagas de Garagem:</label>
+                    <input type="number" class="form-control" id="quantidade_vagas_garagem" name="quantidade_vagas_garagem" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="varanda_sacada" class="form-label">Varanda/Sacada:</label>
+                    <input type="text" class="form-control" id="varanda_sacada" name="varanda_sacada" placeholder="Sim ou Não" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="area_lazer_condominio" class="form-label">Área de Lazer do Condomínio:</label>
+                    <input type="text" class="form-control" id="area_lazer_condominio" name="area_lazer_condominio" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="moveis_planejados" class="form-label">Móveis Planejados:</label>
+                    <input type="text" class="form-control" id="moveis_planejados" name="moveis_planejados" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="area_total" class="form-label">Área Total (m²):</label>
+                    <input type="number" step="0.01" class="form-control" id="area_total" name="area_total" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="preco_imovel" class="form-label">Preço do Imóvel (R$):</label>
+                    <input type="number" step="0.01" class="form-control" id="preco_imovel" name="preco_imovel" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="valor_condominio" class="form-label">Valor do Condomínio (R$):</label>
+                    <input type="number" step="0.01" class="form-control" id="valor_condominio" name="valor_condominio" required>
+                </div>
+            </div>
             <div class="row mb-3">
                 <div class="col-md-12">
                     <label for="status" class="form-label">Status:</label>
@@ -78,7 +113,6 @@
                 </div>
             </div>
 
-            <!-- Botão de Cadastrar -->
             <button type="submit" class="btn btn-dark w-100 mt-3">Cadastrar Apartamento</button>
         </form>
     </div>

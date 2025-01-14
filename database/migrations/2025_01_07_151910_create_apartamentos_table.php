@@ -31,7 +31,7 @@ return new class extends Migration
             $table->float('area_total');
             $table->float('preco_imovel');
             $table->float('valor_condominio');
-            $table->string('status')->default('disponivel'); // Campo para status
+            $table->string('status')->default('disponivel'); 
             $table->timestamps();
         });
     }
