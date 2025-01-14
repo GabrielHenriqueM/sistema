@@ -70,7 +70,7 @@
                 <div class="col-md-12">
                     <label for="status" class="form-label">Status:</label>
                     <select class="form-select" id="status" name="status" required>
-                        <option value="disponível" selected>Disponível</option>
+                        <option value="disponivel" selected>Disponível</option>
                         <option value="vendido">Vendido</option>
                     </select>
                 </div>

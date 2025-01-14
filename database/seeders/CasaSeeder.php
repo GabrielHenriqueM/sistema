@@ -13,6 +13,6 @@ class CasaSeeder extends Seeder
      */
     public function run(): void
     {
-        Casa::factory()->count(1)->create();
+        Casa::factory()->count(50)->create();
     }
 }

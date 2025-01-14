@@ -71,7 +71,7 @@
                 <div class="col-md-12">
                     <label for="status" class="form-label">Status:</label>
                     <select class="form-select" id="status" name="status" required>
-                        <option value="disponível" {{ $casa->status === 'disponível' ? 'selected' : '' }}>Disponível</option>
+                        <option value="disponivel" {{ $casa->status === 'disponível' ? 'selected' : '' }}>Disponível</option>
                         <option value="vendido" {{ $casa->status === 'vendido' ? 'selected' : '' }}>Vendido</option>
                     </select>
                 </div>
