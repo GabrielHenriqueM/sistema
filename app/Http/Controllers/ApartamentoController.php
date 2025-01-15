@@ -45,9 +45,9 @@ class ApartamentoController extends Controller
             'varanda_sacada' => 'required|string|max:255',
             'area_lazer_condominio' => 'required|string|max:255',
             'moveis_planejados' => 'required|string|max:255',
-            'area_total' => 'required|numeric',
-            'preco_imovel' => 'required|numeric',
-            'valor_condominio' => 'required|numeric',
+            'area_total' => 'required|numeric|min:0',
+            'preco_imovel' => 'required|numeric|min:0',  
+            'valor_condominio' => 'required|numeric|min:0',
             'status' => 'required|string|in:disponivel,vendido',
         ]);
 
@@ -88,9 +88,9 @@ class ApartamentoController extends Controller
             'varanda_sacada' => 'required|string|max:255',
             'area_lazer_condominio' => 'required|string|max:255',
             'moveis_planejados' => 'required|string|max:255',
-            'area_total' => 'required|numeric',
-            'preco_imovel' => 'required|numeric',
-            'valor_condominio' => 'required|numeric',
+            'area_total' => 'required|numeric|min:0',
+            'preco_imovel' => 'required|numeric|min:0',  
+            'valor_condominio' => 'required|numeric|min:0',
             'status' => 'required|string|in:disponivel,vendido',
         ]);
 
