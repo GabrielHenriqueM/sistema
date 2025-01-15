@@ -19,12 +19,12 @@ class LoteFactory extends Factory
             'rua' => $this->faker->streetName(),
             'bairro' => $this->faker->word(),
             'cidade' => $this->faker->city(),
-            'estado' => $this->faker->state(),
+            'estado' => $this->faker->stateAbbr(), // Sigla do estado
             'cep' => $this->faker->postcode(),
-            'area_total' => $this->faker->randomFloat(2, 50, 500),
-            'valor_loteamento' => $this->faker->randomFloat(2, 50000, 500000),
+            'area_total' => $this->faker->randomFloat(2, 200, 1000), // Área maior
+            'valor_loteamento' => $this->faker->randomFloat(2, 100000, 5000000), // Valor maior
             'observacoes' => $this->faker->sentence(),
-            'status' => $this->faker->randomElement(['disponivel', 'vendido']), 
+            'status' => $this->faker->randomElement(['disponivel', 'vendido']),
         ];
     }
 }

@@ -36,22 +36,15 @@ class LoteController extends Controller
             'cidade' => 'required|string|max:255',
             'estado' => 'required|string|max:255',
             'cep' => 'required|string|max:15',
-            'area_total' => 'required|numeric',
-            'area_media' => 'nullable|numeric',
-            'valor_loteamento' => 'nullable|numeric',
+            'area_total' => 'required|numeric|min:0',
+            'area_media' => 'nullable|numeric|min:0',
+            'valor_loteamento' => 'nullable|numeric|min:0',
             'observacoes' => 'nullable|string|max:500',
+            'status' => 'required|string|in:disponivel,vendido',
         ]);
 
         Lote::create($validated);
         return redirect()->back()->with('success', 'Lote cadastrado com sucesso!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        // Método não implementado
     }
 
     /**
@@ -75,8 +68,8 @@ class LoteController extends Controller
             'cidade' => 'required|string|max:255',
             'estado' => 'required|string|max:255',
             'cep' => 'required|string|max:15',
-            'area_total' => 'required|numeric',
-            'valor_loteamento' => 'nullable|numeric',
+            'area_total' => 'required|numeric|min:0',
+            'valor_loteamento' => 'nullable|numeric|min:0',
             'observacoes' => 'nullable|string|max:500',
             'status' => 'required|string|in:disponivel,vendido',
         ]);

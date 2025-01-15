@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('cidade', 255);
             $table->string('estado', 255);
             $table->string('cep', 15);
-            $table->double('area_total', 8, 2);
-            $table->double('valor_loteamento', 10, 2)->nullable();
+            $table->decimal('area_total', 10, 2); 
+            $table->decimal('valor_loteamento', 20, 2)->nullable(); 
             $table->text('observacoes')->nullable();
             $table->string('status')->default('disponivel');
             $table->timestamps();
