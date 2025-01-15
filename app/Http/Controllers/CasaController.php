@@ -40,22 +40,14 @@ class CasaController extends Controller
             'area_de_lazer' => 'required|string|max:255',
             'quantidade_banheiros' => 'required|integer',
             'garagem' => 'required|integer',
-            'area_total' => 'required|numeric',
-            'preco_imovel' => 'required|numeric',
-            'status' => 'required|string|in:disponivel,vendido', // Validação do status
+            'area_total' => 'required|numeric|min:0',
+            'preco_imovel' => 'required|numeric|min:0',
+            'status' => 'required|string|in:disponivel,vendido',
         ]);
 
         Casa::create($validated);
 
         return redirect()->back()->with('success', 'Casa cadastrada com sucesso!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        // Não implementado
     }
 
     /**
@@ -85,9 +77,9 @@ class CasaController extends Controller
             'area_de_lazer' => 'required|string|max:255',
             'quantidade_banheiros' => 'required|integer',
             'garagem' => 'required|integer',
-            'area_total' => 'required|numeric',
-            'preco_imovel' => 'required|numeric',
-            'status' => 'required|string|in:disponivel,vendido', // Validação do status
+            'area_total' => 'required|numeric|min:0',
+            'preco_imovel' => 'required|numeric|min:0',
+            'status' => 'required|string|in:disponivel,vendido',
         ]);
 
         $casa->update($validated);

@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('area_de_lazer');
             $table->integer('quantidade_banheiros');
             $table->integer('garagem');
-            $table->float('area_total');
-            $table->float('preco_imovel');
-            $table->string('status')->default('disponível'); 
+            $table->decimal('area_total', 10, 2);
+            $table->decimal('preco_imovel', 20, 2);
+            $table->string('status')->default('disponível');
             $table->timestamps();
         });
     }
