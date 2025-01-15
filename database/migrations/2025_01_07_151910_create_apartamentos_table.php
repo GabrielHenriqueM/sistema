@@ -28,10 +28,10 @@ return new class extends Migration
             $table->string('varanda_sacada');
             $table->string('area_lazer_condominio');
             $table->string('moveis_planejados');
-            $table->float('area_total');
-            $table->float('preco_imovel');
-            $table->float('valor_condominio');
-            $table->string('status')->default('disponivel'); 
+            $table->decimal('area_total', 10, 2);       
+            $table->decimal('preco_imovel', 20, 2);    
+            $table->decimal('valor_condominio', 20, 2);
+            $table->string('status')->default('disponivel');
             $table->timestamps();
         });
     }
