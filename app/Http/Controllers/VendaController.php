@@ -17,16 +17,19 @@ class VendaController extends Controller
     public function index()
     {
         $vendas = Venda::with('cliente')->get()->map(function ($venda) {
-            if ($venda->tipo_imovel === 'casa') {
-                $venda->imovel = Casa::find($venda->imovel_id);
-            } elseif ($venda->tipo_imovel === 'apartamento') {
-                $venda->imovel = Apartamento::find($venda->imovel_id);
-            } elseif ($venda->tipo_imovel === 'lote') {
-                $venda->imovel = Lote::find($venda->imovel_id);
-            } else {
-                $venda->imovel = null;
+            switch ($venda->tipo_imovel) {
+                case 'casa':
+                    $venda->imovel = Casa::find($venda->imovel_id);
+                    break;
+                case 'apartamento':
+                    $venda->imovel = Apartamento::find($venda->imovel_id);
+                    break;
+                case 'lote':
+                    $venda->imovel = Lote::find($venda->imovel_id);
+                    break;
+                default:
+                    $venda->imovel = null;
             }
-
             return $venda;
         });
 
@@ -51,35 +54,15 @@ class VendaController extends Controller
             'cliente_id' => 'required|exists:clientes,id',
             'tipo_imovel' => 'required|string|in:casa,apartamento,lote',
             'imovel_id' => 'required|integer',
-            'valor_venda' => 'required|numeric',
+            'valor_venda' => 'required|numeric|min:0',
             'data_venda' => 'required|date',
         ]);
 
-        Venda::create([
-            'cliente_id' => $validated['cliente_id'],
-            'imovel_id' => $validated['imovel_id'],
-            'tipo_imovel' => $validated['tipo_imovel'],
-            'valor_venda' => $validated['valor_venda'],
-            'data_venda' => $validated['data_venda'],
-        ]);
+        Venda::create($validated);
 
-        if ($validated['tipo_imovel'] === 'casa') {
-            Casa::where('id', $validated['imovel_id'])->update(['status' => 'vendido']);
-        } elseif ($validated['tipo_imovel'] === 'apartamento') {
-            Apartamento::where('id', $validated['imovel_id'])->update(['status' => 'vendido']);
-        } elseif ($validated['tipo_imovel'] === 'lote') {
-            Lote::where('id', $validated['imovel_id'])->update(['status' => 'vendido']);
-        }
+        $this->atualizarStatusImovel($validated['tipo_imovel'], $validated['imovel_id'], 'vendido');
 
         return redirect()->route('vendas.create')->with('success', 'Venda registrada e imóvel atualizado para "vendido"!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Venda $venda)
-    {
-        return view('vendas.show', compact('venda'));
     }
 
     /**
@@ -99,7 +82,7 @@ class VendaController extends Controller
             'cliente_id' => 'required|exists:clientes,id',
             'tipo_imovel' => 'required|string|in:casa,apartamento,lote',
             'imovel_id' => 'required|integer',
-            'valor_venda' => 'required|numeric',
+            'valor_venda' => 'required|numeric|min:0',
             'data_venda' => 'required|date',
         ]);
 
@@ -113,13 +96,7 @@ class VendaController extends Controller
      */
     public function destroy(Venda $venda)
     {
-        if ($venda->tipo_imovel === 'casa') {
-            Casa::where('id', $venda->imovel_id)->update(['status' => 'disponivel']);
-        } elseif ($venda->tipo_imovel === 'apartamento') {
-            Apartamento::where('id', $venda->imovel_id)->update(['status' => 'disponivel']);
-        } elseif ($venda->tipo_imovel === 'lote') {
-            Lote::where('id', $venda->imovel_id)->update(['status' => 'disponivel']);
-        }
+        $this->atualizarStatusImovel($venda->tipo_imovel, $venda->imovel_id, 'disponivel');
 
         $venda->delete();
 
@@ -127,21 +104,36 @@ class VendaController extends Controller
     }
 
     /**
-     * Fetch imóveis based on the selected tipo_imovel.
+     * Atualiza o status do imóvel.
+     */
+    private function atualizarStatusImovel($tipo_imovel, $imovel_id, $status)
+    {
+        switch ($tipo_imovel) {
+            case 'casa':
+                Casa::where('id', $imovel_id)->update(['status' => $status]);
+                break;
+            case 'apartamento':
+                Apartamento::where('id', $imovel_id)->update(['status' => $status]);
+                break;
+            case 'lote':
+                Lote::where('id', $imovel_id)->update(['status' => $status]);
+                break;
+        }
+    }
+
+    /**
+     * Buscar imóveis disponíveis conforme o tipo.
      */
     public function fetchImoveis(Request $request)
     {
         $tipo = $request->tipo_imovel;
 
-        if ($tipo === 'casa') {
-            $imoveis = Casa::where('status', 'disponivel')->get(['id', 'rua', 'numero', 'bairro', 'cidade', 'estado', 'cep', 'area_total']);
-        } elseif ($tipo === 'apartamento') {
-            $imoveis = Apartamento::where('status', 'disponivel')->get(['id', 'bloco_predio', 'numero_apartamento', 'andar', 'bairro', 'cidade', 'estado', 'cep', 'area_total']);
-        } elseif ($tipo === 'lote') {
-            $imoveis = Lote::where('status', 'disponivel')->get(['id', 'numero_lote', 'bairro', 'cidade', 'estado', 'cep', 'area_total']);
-        } else {
-            $imoveis = [];
-        }
+        $imoveis = match ($tipo) {
+            'casa' => Casa::where('status', 'disponivel')->get(['id', 'rua', 'numero', 'bairro', 'cidade', 'estado', 'cep', 'area_total']),
+            'apartamento' => Apartamento::where('status', 'disponivel')->get(['id', 'bloco_predio', 'numero_apartamento', 'andar', 'bairro', 'cidade', 'estado', 'cep', 'area_total']),
+            'lote' => Lote::where('status', 'disponivel')->get(['id', 'numero_lote', 'bairro', 'cidade', 'estado', 'cep', 'area_total']),
+            default => [],
+        };
 
         return response()->json($imoveis);
     }

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('imovel_id');
-            $table->string('tipo_imovel'); 
-            $table->decimal('valor_venda', 15, 2);
+            $table->string('tipo_imovel');
+            $table->decimal('valor_venda', 20, 2); 
             $table->date('data_venda');
             $table->timestamps();
 
