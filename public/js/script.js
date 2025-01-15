@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Código original que já estava no seu arquivo
     document.querySelectorAll('.toggle-submenu').forEach(item => {
         item.addEventListener('mouseover', function () {
             const submenu = this.nextElementSibling;
